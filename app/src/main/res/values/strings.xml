@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Mead Brewer\'s Companion</string>
+    <string name="current_brew_title">Current Brews</string>
 </resources>
