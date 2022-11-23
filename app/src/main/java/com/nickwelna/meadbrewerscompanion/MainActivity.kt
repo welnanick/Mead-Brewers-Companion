@@ -170,7 +170,7 @@ fun ABVCalc() {
                         Modifier
                             .height(56.dp)
                             .selectable(
-                                selected = (text == selectedOption), 
+                                selected = (text == selectedOption),
                                 onClick = { onOptionSelected(text) },
                                 role = Role.RadioButton
                             )
