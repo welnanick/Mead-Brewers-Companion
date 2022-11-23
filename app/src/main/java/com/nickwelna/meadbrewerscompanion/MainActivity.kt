@@ -38,7 +38,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.nickwelna.meadbrewerscompanion.calculators.ABVCalculatorUtil.calcABV
+import com.nickwelna.meadbrewerscompanion.calculators.PotentialAlcoholCalculatorUtil.calcABV
 import com.nickwelna.meadbrewerscompanion.ui.theme.MeadBrewersCompanionTheme
 
 class MainActivity : ComponentActivity() {
@@ -170,7 +170,7 @@ fun ABVCalc() {
                         Modifier
                             .height(56.dp)
                             .selectable(
-                                selected = (text == selectedOption),
+                                selected = text == selectedOption,
                                 onClick = { onOptionSelected(text) },
                                 role = Role.RadioButton
                             )
@@ -178,7 +178,7 @@ fun ABVCalc() {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
-                            selected = (text == selectedOption),
+                            selected = text == selectedOption,
                             onClick = null // null recommended for accessibility with screenreaders
                         )
                         Text(

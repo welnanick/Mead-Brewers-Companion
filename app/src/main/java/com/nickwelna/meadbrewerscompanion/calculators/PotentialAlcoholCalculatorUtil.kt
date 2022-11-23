@@ -1,6 +1,6 @@
 package com.nickwelna.meadbrewerscompanion.calculators
 
-object ABVCalculatorUtil {
+object PotentialAlcoholCalculatorUtil {
     fun calcABV(originalGravity: Float, finalGravity: Float): Float {
         return specificGravityToAlcoholByVolume(1 + originalGravity - finalGravity)
     }
@@ -10,6 +10,6 @@ object ABVCalculatorUtil {
     }
 
     private fun specificGravityToBaume(specificGravity: Float): Float {
-        return 145 * (1 - (1 / specificGravity))
+        return 145 * (1 - 1 / specificGravity)
     }
 }
