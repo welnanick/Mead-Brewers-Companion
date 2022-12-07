@@ -64,7 +64,9 @@ fun MeasurementInput(
     value: String,
     label: String,
     onValueChange: (String) -> Unit,
-    onFocusChange: (FocusState) -> Unit
+    onFocusChange: (FocusState) -> Unit,
+    isError: Boolean = false,
+    supportingText: String = ""
 ) {
     OutlinedTextField(
         value = value,
@@ -76,6 +78,12 @@ fun MeasurementInput(
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .onFocusChanged(onFocusChange),
+        isError = isError,
+        supportingText = {
+            if (isError) {
+                Text(text = supportingText)
+            }
+        }
     )
 }
 
@@ -90,7 +98,7 @@ fun ABVCalc() {
     var inputUnitLabel by remember { mutableStateOf("Gravity") }
     var outputUnitLabel by remember { mutableStateOf("ABV") }
     var defaultValue by remember { mutableStateOf("0.000") }
-
+    var finalMeasurementError by remember { mutableStateOf(false) }
     val options = listOf("Specific Gravity", "BRIX", "Baume")
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf(options[0]) }
@@ -129,11 +137,12 @@ fun ABVCalc() {
                             selectedOptionText = selectionOption
                             inputUnits = InputUnit.fromIndex(inputUnitIndex)
                             inputUnitLabel = InputUnit.getUnitLabelString(inputUnitIndex)
-                            defaultValue = if (inputUnits == InputUnit.BAUME || inputUnits == InputUnit.BRIX) {
-                                "00.00"
-                            } else {
-                                "0.000"
-                            }
+                            defaultValue =
+                                if (inputUnits == InputUnit.BAUME || inputUnits == InputUnit.BRIX) {
+                                    "00.00"
+                                } else {
+                                    "0.000"
+                                }
                             originalGravity = defaultValue
                             finalGravity = defaultValue
                             potentialAlcohol = ""
@@ -174,7 +183,11 @@ fun ABVCalc() {
             onFocusChange = {
                 finalGravity =
                     if (!it.hasFocus && finalGravity.isEmpty()) "0.000" else finalGravity
-            })
+                finalMeasurementError = errorCheckInputs(originalGravity, finalGravity)
+            },
+            isError = finalMeasurementError,
+            supportingText = "Final $inputUnitLabel must be less than Original $inputUnitLabel"
+        )
         Spacer(modifier = Modifier.height(16.dp))
         val radioOptions = listOf("ABV", "ABW")
         var selectedOption by remember { mutableStateOf(radioOptions[0]) }
@@ -194,13 +207,23 @@ fun ABVCalc() {
                                     val outputUnitIndex = radioOptions.indexOf(selectedOption)
                                     outputUnits = OutputUnit.fromIndex(outputUnitIndex)
                                     outputUnitLabel = OutputUnit.getUnitLabelString(outputUnitIndex)
-                                    if (potentialAlcohol != "") {
-                                        potentialAlcohol = "%.4g".format(calcPotentialAlcohol(
-                                            originalGravity.toFloat(),
-                                            finalGravity.toFloat(),
-                                            inputUnits,
-                                            outputUnits
-                                        ))
+                                    if (originalGravity.isEmpty()) {
+                                        originalGravity = defaultValue
+                                    }
+                                    if (finalGravity.isEmpty()) {
+                                        finalGravity = defaultValue
+                                    }
+                                    finalMeasurementError =
+                                        errorCheckInputs(originalGravity, finalGravity)
+                                    if (potentialAlcohol != "" && !finalMeasurementError) {
+                                        potentialAlcohol = "%.4g".format(
+                                            calcPotentialAlcohol(
+                                                originalGravity.toFloat(),
+                                                finalGravity.toFloat(),
+                                                inputUnits,
+                                                outputUnits
+                                            )
+                                        )
                                     }
                                 },
                                 role = Role.RadioButton
@@ -222,13 +245,18 @@ fun ABVCalc() {
             }
             Button(
                 onClick = {
-                    // Maintain proper number of significant figures
-                    potentialAlcohol = "%.4g".format(calcPotentialAlcohol(
-                        originalGravity.toFloat(),
-                        finalGravity.toFloat(),
-                        inputUnits,
-                        outputUnits
-                    ))
+                    finalMeasurementError = errorCheckInputs(originalGravity, finalGravity)
+                    if (!finalMeasurementError) {
+                        // Maintain proper number of significant figures
+                        potentialAlcohol = "%.4g".format(
+                            calcPotentialAlcohol(
+                                originalGravity.toFloat(),
+                                finalGravity.toFloat(),
+                                inputUnits,
+                                outputUnits
+                            )
+                        )
+                    }
                 },
                 modifier = Modifier
                     .align(Alignment.CenterVertically)
@@ -244,6 +272,15 @@ fun ABVCalc() {
             color = MaterialTheme.colorScheme.onSurface
         )
     }
+}
+
+private fun errorCheckInputs(
+    originalGravity: String,
+    finalGravity: String,
+): Boolean {
+    val originalFloat = originalGravity.toFloat()
+    val finalFloat = finalGravity.toFloat()
+    return originalFloat < finalFloat
 }
 
 @Preview(name = "Light Mode")
