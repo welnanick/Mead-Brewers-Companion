@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     dependencies {
-        classpath("com.dipien:semantic-version-android-gradle-plugin:1.4.0")
+        classpath("com.dipien:semantic-version-android-gradle-plugin:1.4.1")
     }
 }
 plugins {
