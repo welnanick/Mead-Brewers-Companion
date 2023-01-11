@@ -28,7 +28,11 @@ jobs:
         with:
           java-version: '18'
           distribution: 'temurin'
-      - name: Grant Permissions to gradlew
-        run: chmod +x gradlew
-      - name: Test
-        run: ./gradlew testDebugUnitTest --tests "com.nickwelna.meadbrewerscompanion.*"
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: wrapper
+      - name: Run Tests
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments:  testDebugUnitTest --tests "com.nickwelna.meadbrewerscompanion.*"
