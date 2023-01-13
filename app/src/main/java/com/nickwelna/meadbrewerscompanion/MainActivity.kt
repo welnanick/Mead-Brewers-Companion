@@ -40,6 +40,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -140,21 +141,25 @@ fun MeasurementInput(
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun ABVCalc(paddingValues: PaddingValues) {
-    var originalGravity by remember { mutableStateOf("0.000") }
-    var finalGravity by remember { mutableStateOf("0.000") }
-    var potentialAlcohol by remember { mutableStateOf("") }
-    var inputUnits by remember { mutableStateOf(InputUnit.SG) }
-    var outputUnits by remember { mutableStateOf(OutputUnit.ABV) }
-    var inputUnitLabel by remember { mutableStateOf("Gravity") }
-    var outputUnitLabel by remember { mutableStateOf("ABV") }
-    var defaultValue by remember { mutableStateOf("0.000") }
-    var finalMeasurementError by remember { mutableStateOf(false) }
+    var originalGravity by rememberSaveable { mutableStateOf("0.000") }
+    var finalGravity by rememberSaveable { mutableStateOf("0.000") }
+    var potentialAlcohol by rememberSaveable { mutableStateOf("") }
+    var inputUnits by rememberSaveable { mutableStateOf(InputUnit.SG) }
+    var outputUnits by rememberSaveable { mutableStateOf(OutputUnit.ABV) }
+    var inputUnitLabel by rememberSaveable { mutableStateOf("Gravity") }
+    var outputUnitLabel by rememberSaveable { mutableStateOf("ABV") }
+    var defaultValue by rememberSaveable { mutableStateOf("0.000") }
+    var finalMeasurementError by rememberSaveable { mutableStateOf(false) }
     val options = listOf("Specific Gravity", "BRIX", "Baume")
-    var expanded by remember { mutableStateOf(false) }
-    var selectedOptionText by remember { mutableStateOf(options[0]) }
+    var expanded by rememberSaveable { mutableStateOf(false) }
+    var selectedOptionText by rememberSaveable { mutableStateOf(options[0]) }
     val keyboardController = LocalSoftwareKeyboardController.current
 
-    Column(modifier = Modifier.padding(paddingValues)) {
+    Column(
+        modifier = Modifier
+            .padding(paddingValues)
+            .verticalScroll(rememberScrollState())
+    ) {
         Text(
             text = "To calculate the potential alcohol of a finished brew simply:",
             modifier = Modifier.padding(horizontal = 16.dp),
@@ -265,7 +270,7 @@ fun ABVCalc(paddingValues: PaddingValues) {
         )
         Spacer(modifier = Modifier.height(16.dp))
         val radioOptions = listOf("ABV", "ABW")
-        var selectedOption by remember { mutableStateOf(radioOptions[0]) }
+        var selectedOption by rememberSaveable { mutableStateOf(radioOptions[0]) }
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
 
@@ -318,17 +323,21 @@ fun ABVCalc(paddingValues: PaddingValues) {
             }
             Button(
                 onClick = {
-                    finalMeasurementError = errorCheckInputs(originalGravity, finalGravity)
-                    if (!finalMeasurementError) { // Maintain proper number of significant figures
-                        potentialAlcohol = "%.4g".format(
-                            calcPotentialAlcohol(
-                                originalGravity.toFloat(),
-                                finalGravity.toFloat(),
-                                inputUnits,
-                                outputUnits
+                    if (originalGravity.isNotEmpty() && finalGravity.isNotEmpty()) {
+                        finalMeasurementError = errorCheckInputs(originalGravity, finalGravity)
+                        if (!finalMeasurementError) {
+                            
+                            // Maintain proper number of significant figures
+                            potentialAlcohol = "%.4g".format(
+                                calcPotentialAlcohol(
+                                    originalGravity.toFloat(),
+                                    finalGravity.toFloat(),
+                                    inputUnits,
+                                    outputUnits
+                                )
                             )
-                        )
-                        keyboardController?.hide()
+                            keyboardController?.hide()
+                        }
                     }
                 },
                 modifier = Modifier

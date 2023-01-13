@@ -14,24 +14,18 @@ object PotentialAlcoholCalculatorUtil {
         logcat(LogPriority.DEBUG) { "Input params: $originalMeasurement, $finalMeasurement, $inputUnit, $outputUnit" }
         return when (outputUnit) {
             OutputUnit.ABV -> calcPotentialAlcoholByVolume(
-                originalMeasurement,
-                finalMeasurement,
-                inputUnit
+                originalMeasurement, finalMeasurement, inputUnit
             )
 
             // ABV * 0.8 = ABW
             OutputUnit.ABW -> 0.8f * calcPotentialAlcoholByVolume(
-                originalMeasurement,
-                finalMeasurement,
-                inputUnit
+                originalMeasurement, finalMeasurement, inputUnit
             )
         }
     }
 
     private fun calcPotentialAlcoholByVolume(
-        originalMeasurement: Float,
-        finalMeasurement: Float,
-        unit: InputUnit
+        originalMeasurement: Float, finalMeasurement: Float, unit: InputUnit
     ): Float {
         return when (unit) {
             InputUnit.SG -> specificGravityToAlcoholByVolume(1 + originalMeasurement - finalMeasurement)
@@ -50,9 +44,7 @@ object PotentialAlcoholCalculatorUtil {
 
     enum class InputUnit(private val dropdownIndex: Int) {
 
-        SG(0),
-        BRIX(1),
-        BAUME(2);
+        SG(0), BRIX(1), BAUME(2);
 
         companion object {
             fun fromIndex(index: Int): InputUnit {
@@ -76,8 +68,7 @@ object PotentialAlcoholCalculatorUtil {
     }
 
     enum class OutputUnit(private val radioIndex: Int) {
-        ABV(0),
-        ABW(1);
+        ABV(0), ABW(1);
 
         companion object {
             fun fromIndex(index: Int): OutputUnit {
