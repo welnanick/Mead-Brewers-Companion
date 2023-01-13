@@ -7,8 +7,7 @@ import android.text.Spanned
 import android.text.style.LeadingMarginSpan
 
 class OrderedListSpan(
-    private val width: Int,
-    private val leadingText: String
+    private val width: Int, private val leadingText: String
 ) : LeadingMarginSpan {
 
     override fun drawLeadingMargin(
@@ -24,8 +23,7 @@ class OrderedListSpan(
         end: Int,
         first: Boolean,
         layout: Layout
-    ) {
-        // Check if we're at the start of the span
+    ) { // Check if we're at the start of the span
         val spanStart = (text as Spanned).getSpanStart(this)
         val isFirstCharacter = spanStart == start
 

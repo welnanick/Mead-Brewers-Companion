@@ -35,4 +35,4 @@ jobs:
       - name: Run Tests
         uses: gradle/gradle-build-action@v2
         with:
-          arguments:  testDebugUnitTest --tests "com.nickwelna.meadbrewerscompanion.*"
+          arguments: testDebugUnitTest --tests "com.nickwelna.meadbrewerscompanion.*"
