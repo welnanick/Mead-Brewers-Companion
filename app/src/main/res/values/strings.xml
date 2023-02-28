@@ -1,4 +1,25 @@
 <resources>
     <string name="app_name">Mead Brewer\'s Companion</string>
     <string name="current_brew_title">Current Brews</string>
+    <string name="help_content_description">Help</string>
+    <string name="potential_alcohol_instruction_prompt">To calculate the potential alcohol of a finished brew simply:</string>
+    <string-array name="potential_alcohol_instructions">
+        <item>Select the unit used to take your pre and post fermentation measurements.</item>
+        <item>Enter your measurements in the text fields below.</item>
+        <item>Select your desired output unit.</item>
+        <item>Tap the "Calculate" button.</item>
+    </string-array>
+    <string name="significant_gravity_default">0.000</string>
+    <string name="brix_baume_default">00.00</string>
+    <string name="input_unit_default">Gravity</string>
+    <string name="output_unit_default">ABV</string>
+    <string-array name="input_units">
+        <item>Specific Gravity</item>
+        <item>BRIX</item>
+        <item>Baume</item>
+    </string-array>
+    <string name="input_unit_label">Input Unit</string>
+    <string name="original_measure_label">Original %1$s</string>
+    <string name="final_measure_label">Final %1$s</string>
+    <string name="final_measure_error_label">Final %1$s must be less than Original %1$s</string>
 </resources>

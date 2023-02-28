@@ -3,7 +3,7 @@ package com.nickwelna.meadbrewerscompanion.calculators
 import logcat.LogPriority
 import logcat.logcat
 
-object PotentialAlcoholCalculatorUtil {
+object PotentialAlcohol {
 
     fun calcPotentialAlcohol(
         originalMeasurement: Float,

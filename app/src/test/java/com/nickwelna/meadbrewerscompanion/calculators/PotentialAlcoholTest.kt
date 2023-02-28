@@ -1,12 +1,12 @@
-package com.nickwelna.meadbrewerscompanion
+package com.nickwelna.meadbrewerscompanion.calculators
 
 import com.google.common.truth.Truth
-import com.nickwelna.meadbrewerscompanion.calculators.PotentialAlcoholCalculatorUtil.InputUnit
-import com.nickwelna.meadbrewerscompanion.calculators.PotentialAlcoholCalculatorUtil.OutputUnit
-import com.nickwelna.meadbrewerscompanion.calculators.PotentialAlcoholCalculatorUtil.calcPotentialAlcohol
+import com.nickwelna.meadbrewerscompanion.calculators.PotentialAlcohol.InputUnit
+import com.nickwelna.meadbrewerscompanion.calculators.PotentialAlcohol.OutputUnit
+import com.nickwelna.meadbrewerscompanion.calculators.PotentialAlcohol.calcPotentialAlcohol
 import org.junit.Test
 
-class PotentialAlcoholCalculatorUtilTest {
+class PotentialAlcoholTest {
 
     @Test
     fun calcPotentialAlcohol_withSpecificGravityAndABV_returnsCorrectValue() {
