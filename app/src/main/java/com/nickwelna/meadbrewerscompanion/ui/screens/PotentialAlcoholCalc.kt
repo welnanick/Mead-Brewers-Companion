@@ -200,7 +200,7 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
 
         MeasurementInput(
             value = finalGravity,
-            context.resources.getString(R.string.final_measure_label, outputUnitLabel),
+            context.resources.getString(R.string.final_measure_label, inputUnitLabel),
             onValueChange = {
                 if (it.length <= 5) {
                     finalGravity = it
@@ -217,7 +217,7 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
             supportingText = context.resources
                 .getString(R.string.final_measure_error_label, inputUnitLabel),
             contentDescription = context.resources
-                .getString(R.string.final_measure_label, outputUnitLabel),
+                .getString(R.string.final_measure_label, inputUnitLabel),
             imeAction = ImeAction.Done
         )
         Spacer(modifier = Modifier.height(16.dp))
