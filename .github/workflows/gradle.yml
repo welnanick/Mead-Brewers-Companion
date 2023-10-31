@@ -61,6 +61,8 @@ jobs:
             arch: x86
           - api-level: 33
             arch: x86
+          - api-level: 34
+            arch: x86
     steps:
       - name: Checkout branch
         uses: actions/checkout@v4.1.1
