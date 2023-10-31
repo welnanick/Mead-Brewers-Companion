@@ -14,5 +14,5 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "Mead Brewer's Companion"
-include ':app'
+include(":app")
 
