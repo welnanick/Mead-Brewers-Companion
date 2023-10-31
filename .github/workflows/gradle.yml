@@ -81,6 +81,7 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           target: google_apis
+          if: ${{ matrix.api-level }} < 28
           arch: x86_64
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
