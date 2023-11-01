@@ -18,10 +18,10 @@ Baume measurements are all supported. You can also decide if you want the potent
 calculated using alcohol by volume (ABV) or alcohol by weight (ABW). If you ever need a quick
 reminder about what any of these units mean, there is also a handy help dialog just one tap away.
 
-![Screenshot showing an example of calculating ABV using specific gravity](screenshots/potential_alcohol_screen/example_specific_gravity_abv.png)
-![Screenshot showing an example of calculating ABW using specific gravity](screenshots/potential_alcohol_screen/example_specific_gravity_abw.png)
-![Screenshot showing an example of calculating ABV using BRIX](screenshots/potential_alcohol_screen/example_brix_abv.png)
-![Screenshot showing an example of calculating ABW using BRIX](screenshots/potential_alcohol_screen/example_brix_abw.png)
-![Screenshot showing an example of calculating ABV using baume](screenshots/potential_alcohol_screen/example_baume_abv.png)
-![Screenshot showing an example of calculating ABW using baume](screenshots/potential_alcohol_screen/example_baume_abw.png)
-![Screenshot showing the help dialog](screenshots/potential_alcohol_screen/example_help_dialog.png)
+<img src="screenshots/potential_alcohol_screen/example_specific_gravity_abv.png" alt="Screenshot showing an example of calculating ABV using specific gravity" width="400">
+<img src="screenshots/potential_alcohol_screen/example_specific_gravity_abw.png" alt="Screenshot showing an example of calculating ABW using specific gravity" width="400">
+<img src="screenshots/potential_alcohol_screen/example_brix_abv.png" alt="Screenshot showing an example of calculating ABV using BRIX" width="400">
+<img src="screenshots/potential_alcohol_screen/example_brix_abw.png" alt="Screenshot showing an example of calculating ABW using BRIX" width="400">
+<img src="screenshots/potential_alcohol_screen/example_baume_abv.png" alt="Screenshot showing an example of calculating ABV using Baume" width="400">
+<img src="screenshots/potential_alcohol_screen/example_baume_abw.png" alt="Screenshot showing an example of calculating ABW using Baume" width="400">
+<img src="screenshots/potential_alcohol_screen/example_help_dialog.png" alt="Screenshot showing the help dialog" width="400">
