@@ -65,6 +65,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.DialogProperties
 import com.nickwelna.meadbrewerscompanion.R
 import com.nickwelna.meadbrewerscompanion.calculators.PotentialAlcohol
 import com.nickwelna.meadbrewerscompanion.ui.theme.MeadBrewersCompanionTheme
@@ -370,7 +371,10 @@ fun MeasurementInput(
 fun HelpDialog(openDialog: MutableState<Boolean>) {
 
     if (openDialog.value) {
-        AlertDialog(onDismissRequest = { // Dismiss the dialog when the user clicks outside the dialog or on the back
+        AlertDialog(
+            properties = DialogProperties(usePlatformDefaultWidth = false),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+            onDismissRequest = { // Dismiss the dialog when the user clicks outside the dialog or on the back
             // button. If you want to disable that functionality, simply use an empty
             // onDismissRequest.
             openDialog.value = false
