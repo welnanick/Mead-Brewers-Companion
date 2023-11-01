@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace ="com.nickwelna.meadbrewerscompanion"
+    namespace = "com.nickwelna.meadbrewerscompanion"
     compileSdk = 34
 
     defaultConfig {
@@ -22,7 +22,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {

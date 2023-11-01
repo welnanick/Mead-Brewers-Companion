@@ -27,7 +27,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(topBar = {
                     CenterAlignedTopAppBar(title = {
                         Text(
-                            "Potential Alcohol Calculator",
+                            stringResource(R.string.potential_alcohol_screen_title),
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis
                         )

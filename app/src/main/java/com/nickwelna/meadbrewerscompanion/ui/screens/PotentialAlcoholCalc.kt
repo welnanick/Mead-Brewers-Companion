@@ -1,7 +1,6 @@
 package com.nickwelna.meadbrewerscompanion.ui.screens
 
 import android.content.res.Configuration
-import android.content.res.Resources
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -95,7 +94,7 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
         )
     }
     var finalMeasurementError by rememberSaveable { mutableStateOf(false) }
-    val options = context.resources.getStringArray(R.array.input_units)
+    val options = stringArrayResource(R.array.input_units)
     var expanded by rememberSaveable { mutableStateOf(false) }
     var selectedOptionText by rememberSaveable { mutableStateOf(options[0]) }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -181,7 +180,7 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
 
         MeasurementInput(
             value = originalGravity,
-            context.resources.getString(R.string.original_measure_label, inputUnitLabel),
+            stringResource(R.string.original_measure_label, inputUnitLabel),
             onValueChange = {
                 if (it.length <= 5) {
                     originalGravity = it
@@ -189,7 +188,10 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
             },
             onFocusChange = {
                 originalGravity =
-                    if (!it.hasFocus && originalGravity.isEmpty()) "0.000" else if (it.hasFocus && (originalGravity == "0.000" || originalGravity == "00.00")) "" else originalGravity
+                    if (!it.hasFocus && originalGravity.isEmpty()) context.resources.getString(R.string.significant_gravity_default) else if (it.hasFocus && (originalGravity == context.resources.getString(
+                            R.string.significant_gravity_default
+                        ) || originalGravity == context.resources.getString(R.string.brix_baume_default))
+                    ) "" else originalGravity
             },
             contentDescription = context.resources
                 .getString(R.string.original_measure_label, inputUnitLabel),
@@ -200,7 +202,7 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
 
         MeasurementInput(
             value = finalGravity,
-            context.resources.getString(R.string.final_measure_label, inputUnitLabel),
+            stringResource(R.string.final_measure_label, inputUnitLabel),
             onValueChange = {
                 if (it.length <= 5) {
                     finalGravity = it
@@ -208,7 +210,10 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
             },
             onFocusChange = {
                 finalGravity =
-                    if (!it.hasFocus && finalGravity.isEmpty()) "0.000" else if (it.hasFocus && (finalGravity == "0.000" || finalGravity == "00.00")) "" else finalGravity
+                    if (!it.hasFocus && finalGravity.isEmpty()) context.resources.getString(R.string.significant_gravity_default) else if (it.hasFocus && (finalGravity == context.resources.getString(
+                            R.string.significant_gravity_default
+                        ) || finalGravity == context.resources.getString(R.string.brix_baume_default))
+                    ) "" else finalGravity
                 if (!it.hasFocus) {
                     finalMeasurementError = errorCheckInputs(originalGravity, finalGravity)
                 }
@@ -221,7 +226,7 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
             imeAction = ImeAction.Done
         )
         Spacer(modifier = Modifier.height(16.dp))
-        val radioOptions = listOf("ABV", "ABW")
+        val radioOptions = stringArrayResource(R.array.output_units)
         var selectedOption by rememberSaveable { mutableStateOf(radioOptions[0]) }
 
         Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -267,7 +272,7 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
                     ) {
                         RadioButton(
                             selected = text == selectedOption,
-                            onClick = null // null recommended for accessibility with screenreaders
+                            onClick = null // null recommended for accessibility with screen readers
                         )
                         Text(
                             text = text,
@@ -304,12 +309,12 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
                     contentColor = MaterialTheme.colorScheme.onSecondaryContainer
                 )
             ) {
-                Text("Calculate $outputUnitLabel")
+                Text(context.getString(R.string.calculate_button_text, outputUnitLabel))
             }
         }
         Spacer(modifier = Modifier.height(16.dp))
         Text(
-            text = "Calculated $outputUnitLabel is:",
+            text = context.getString(R.string.calculated_alcohol_title, outputUnitLabel),
             modifier = Modifier
                 .padding(start = 16.dp)
                 .fillMaxWidth(),
@@ -328,7 +333,6 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MeasurementInput(
     value: String,
@@ -372,52 +376,58 @@ fun HelpDialog(openDialog: MutableState<Boolean>) {
             openDialog.value = false
         }, text = {
             Column(Modifier.verticalScroll(state = rememberScrollState())) {
-                Text(text = "Input Units", style = MaterialTheme.typography.headlineSmall)
+                Text(
+                    text = stringResource(id = R.string.input_units_title),
+                    style = MaterialTheme.typography.headlineSmall
+                )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = buildAnnotatedString {
                         withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("Specific Gravity (SG): ")
+                            append(stringResource(id = R.string.specific_gravity_label))
                         }
-                        append("Specific Gravity is a measure of the relative density of one material compared to another. For brewing, the reference material is water, so the specific gravity of a fermentable mixture is the density of the liquid divided by the density of water.")
+                        append(stringResource(id = R.string.specific_gravity_description))
                     }, style = MaterialTheme.typography.bodyLarge
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = buildAnnotatedString {
                         withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("BRIX: ")
+                            append(stringResource(id = R.string.brix_label))
                         }
-                        append("A Brix value, expressed as degrees Brix (°Bx), is the number of grams of sucrose present per 100 grams of liquid. The value is measured on a scale of one to 100 and is used to calculate an approximate potential alcohol content.")
+                        append(stringResource(id = R.string.brix_description))
                     }, style = MaterialTheme.typography.bodyLarge
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = buildAnnotatedString {
                         withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("Baume: ")
+                            append(stringResource(id = R.string.baume_label))
                         }
-                        append("A measurement of the dissolved solids in a mixture that indicates the mixture's sugar level and therefore the potential alcohol in the fermented drink.")
+                        append(stringResource(id = R.string.baume_description))
                     }, style = MaterialTheme.typography.bodyLarge
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-                Text(text = "Output Units", style = MaterialTheme.typography.headlineSmall)
-                Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = buildAnnotatedString {
-                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("Alcohol by Volume (ABV): ")
-                        }
-                        append("ABV is the most common measurement of alcohol content in beer; it measures the percentage of the total volume of the liquid in a fermented drink is made up of alcohol.")
-                    }, style = MaterialTheme.typography.bodyLarge
+                    text = stringResource(id = R.string.output_units_title),
+                    style = MaterialTheme.typography.headlineSmall
                 )
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = buildAnnotatedString {
                         withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append("Alcohol by Weight (ABW): ")
+                            append(stringResource(id = R.string.abv_label))
                         }
-                        append("ABW is a measure of the percentage of the total weight of a fermented drink that is made up of alcohol.")
+                        append(stringResource(id = R.string.abv_description))
+                    }, style = MaterialTheme.typography.bodyLarge
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = buildAnnotatedString {
+                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                            append(stringResource(id = R.string.abw_label))
+                        }
+                        append(stringResource(id = R.string.abw_description))
                     }, style = MaterialTheme.typography.bodyLarge
                 )
             }
@@ -425,7 +435,7 @@ fun HelpDialog(openDialog: MutableState<Boolean>) {
             TextButton(onClick = {
                 openDialog.value = false
             }) {
-                Text("Close")
+                Text(stringResource(id = R.string.close_button_text))
             }
         })
     }
@@ -476,6 +486,8 @@ fun GreetingPreview() {
 )
 @Composable
 fun AlertPreview() {
-    val openDialog = remember { mutableStateOf(true) }
-    HelpDialog(openDialog)
+    MeadBrewersCompanionTheme {
+        val openDialog = remember { mutableStateOf(true) }
+        HelpDialog(openDialog)
+    }
 }
