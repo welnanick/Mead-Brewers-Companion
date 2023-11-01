@@ -20,7 +20,7 @@ Easily calculate your Mead's potential Alcohol. Calculations using Specific Grav
 Baume measurements are all supported. You can also decide if you want the potential alcohol
 calculated using alcohol by volume (ABV) or alcohol by weight (ABW). If you ever need a quick
 reminder about what any of these units mean, there is also a handy help dialog just one tap away.
-<p align="left">
+<p float="left">
     <img src="screenshots/potential_alcohol_screen/example_specific_gravity_abv.png" alt="Screenshot showing an example of calculating ABV using specific gravity" width="336" height="748">
     <img src="screenshots/potential_alcohol_screen/example_specific_gravity_abw.png" alt="Screenshot showing an example of calculating ABW using specific gravity" width="336" height="748">
     <img src="screenshots/potential_alcohol_screen/example_brix_abv.png" alt="Screenshot showing an example of calculating ABV using BRIX" width="336" height="748">
