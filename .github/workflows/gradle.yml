@@ -43,7 +43,7 @@ jobs:
         uses: dorny/test-reporter@v1.7.0
         if: success() || failure()    # run this step even if previous step failed
         with:
-          name: Unit Tests            # Name of the check run which will be created
+          name: Unit Test results            # Name of the check run which will be created
           path: '**/build/test-results/test*UnitTest/TEST-*.xml'    # Path to test results
           reporter: java-junit        # Format of test results
 
@@ -116,6 +116,6 @@ jobs:
         uses: dorny/test-reporter@v1.7.0
         if: success() || failure()    # run this step even if previous step failed
         with:
-          name: Emulator Tests ${{ matrix.api-level }} ${{ matrix.arch }} # Name of the check run which will be created
+          name: Emulator Test results (${{ matrix.api-level }}, ${{ matrix.arch }}) # Name of the check run which will be created
           path: '**/build/outputs/androidTest-results/connected/*/TEST-*.xml'    # Path to test results
           reporter: java-junit        # Format of test results
