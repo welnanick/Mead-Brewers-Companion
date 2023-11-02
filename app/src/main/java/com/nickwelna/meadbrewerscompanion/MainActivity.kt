@@ -17,11 +17,14 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.nickwelna.meadbrewerscompanion.ui.screens.HelpDialog
 import com.nickwelna.meadbrewerscompanion.ui.screens.PotentialAlcoholCalc
 import com.nickwelna.meadbrewerscompanion.ui.theme.MeadBrewersCompanionTheme
+import logcat.LogPriority
+import logcat.logcat
 
 class MainActivity : ComponentActivity() {
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        logcat(LogPriority.INFO) { "#onCreate"}
         setContent {
             MeadBrewersCompanionTheme {
                 Scaffold(topBar = {

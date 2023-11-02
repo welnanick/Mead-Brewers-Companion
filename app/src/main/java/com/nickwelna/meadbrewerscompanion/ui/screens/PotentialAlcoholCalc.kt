@@ -69,6 +69,8 @@ import androidx.compose.ui.window.DialogProperties
 import com.nickwelna.meadbrewerscompanion.R
 import com.nickwelna.meadbrewerscompanion.calculators.PotentialAlcohol
 import com.nickwelna.meadbrewerscompanion.ui.theme.MeadBrewersCompanionTheme
+import logcat.LogPriority
+import logcat.logcat
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
@@ -157,7 +159,11 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
                             selectedOptionText = selectionOption
                             inputUnits = PotentialAlcohol.InputUnit.fromIndex(inputUnitIndex)
                             inputUnitLabel =
-                                PotentialAlcohol.InputUnit.getUnitLabelString(inputUnitIndex)
+                                PotentialAlcohol.InputUnit.getUnitLabelString(
+                                    inputUnitIndex,
+                                    context
+                                )
+                            logcat(LogPriority.DEBUG) { "$inputUnitLabel selected as input unit" }
                             defaultValue =
                                 if (inputUnits == PotentialAlcohol.InputUnit.BAUME || inputUnits == PotentialAlcohol.InputUnit.BRIX) {
                                     context.resources.getString(R.string.brix_baume_default)
@@ -246,8 +252,9 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
                                         PotentialAlcohol.OutputUnit.fromIndex(outputUnitIndex)
                                     outputUnitLabel =
                                         PotentialAlcohol.OutputUnit.getUnitLabelString(
-                                            outputUnitIndex
+                                            outputUnitIndex, context
                                         )
+                                    logcat(LogPriority.DEBUG) { "$outputUnitLabel selected as output unit" }
                                     if (originalGravity.isEmpty()) {
                                         originalGravity = defaultValue
                                     }
@@ -285,6 +292,7 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
             }
             Button(
                 onClick = {
+                    logcat(LogPriority.INFO) { "Potential Alcohol calculation requested" }
                     if (originalGravity.isNotEmpty() && finalGravity.isNotEmpty()) {
                         finalMeasurementError = errorCheckInputs(originalGravity, finalGravity)
                         if (!finalMeasurementError) {
@@ -299,6 +307,8 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
                                 )
                             )
                             keyboardController?.hide()
+                        } else {
+                            logcat(LogPriority.WARN) { "There was an error while checking the input values." }
                         }
                     }
                 },
@@ -373,75 +383,77 @@ fun HelpDialog(openDialog: MutableState<Boolean>) {
     if (openDialog.value) {
         AlertDialog(
             properties = DialogProperties(usePlatformDefaultWidth = false),
-            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp),
             onDismissRequest = { // Dismiss the dialog when the user clicks outside the dialog or on the back
-            // button. If you want to disable that functionality, simply use an empty
-            // onDismissRequest.
-            openDialog.value = false
-        }, text = {
-            Column(Modifier.verticalScroll(state = rememberScrollState())) {
-                Text(
-                    text = stringResource(id = R.string.input_units_title),
-                    style = MaterialTheme.typography.headlineSmall
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append(stringResource(id = R.string.specific_gravity_label))
-                        }
-                        append(stringResource(id = R.string.specific_gravity_description))
-                    }, style = MaterialTheme.typography.bodyLarge
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append(stringResource(id = R.string.brix_label))
-                        }
-                        append(stringResource(id = R.string.brix_description))
-                    }, style = MaterialTheme.typography.bodyLarge
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append(stringResource(id = R.string.baume_label))
-                        }
-                        append(stringResource(id = R.string.baume_description))
-                    }, style = MaterialTheme.typography.bodyLarge
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = stringResource(id = R.string.output_units_title),
-                    style = MaterialTheme.typography.headlineSmall
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append(stringResource(id = R.string.abv_label))
-                        }
-                        append(stringResource(id = R.string.abv_description))
-                    }, style = MaterialTheme.typography.bodyLarge
-                )
-                Spacer(modifier = Modifier.height(8.dp))
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-                            append(stringResource(id = R.string.abw_label))
-                        }
-                        append(stringResource(id = R.string.abw_description))
-                    }, style = MaterialTheme.typography.bodyLarge
-                )
-            }
-        }, confirmButton = {/* Intentionally Blank */ }, dismissButton = {
-            TextButton(onClick = {
+                // button. If you want to disable that functionality, simply use an empty
+                // onDismissRequest.
                 openDialog.value = false
-            }) {
-                Text(stringResource(id = R.string.close_button_text))
-            }
-        })
+            }, text = {
+                Column(Modifier.verticalScroll(state = rememberScrollState())) {
+                    Text(
+                        text = stringResource(id = R.string.input_units_title),
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append(stringResource(id = R.string.specific_gravity_label))
+                            }
+                            append(stringResource(id = R.string.specific_gravity_description))
+                        }, style = MaterialTheme.typography.bodyLarge
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append(stringResource(id = R.string.brix_label))
+                            }
+                            append(stringResource(id = R.string.brix_description))
+                        }, style = MaterialTheme.typography.bodyLarge
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append(stringResource(id = R.string.baume_label))
+                            }
+                            append(stringResource(id = R.string.baume_description))
+                        }, style = MaterialTheme.typography.bodyLarge
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = stringResource(id = R.string.output_units_title),
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append(stringResource(id = R.string.abv_label))
+                            }
+                            append(stringResource(id = R.string.abv_description))
+                        }, style = MaterialTheme.typography.bodyLarge
+                    )
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(
+                        text = buildAnnotatedString {
+                            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+                                append(stringResource(id = R.string.abw_label))
+                            }
+                            append(stringResource(id = R.string.abw_description))
+                        }, style = MaterialTheme.typography.bodyLarge
+                    )
+                }
+            }, confirmButton = {/* Intentionally Blank */ }, dismissButton = {
+                TextButton(onClick = {
+                    openDialog.value = false
+                }) {
+                    Text(stringResource(id = R.string.close_button_text))
+                }
+            })
     }
 }
 
