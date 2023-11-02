@@ -1,3 +1,54 @@
 <resources>
     <string name="app_name">Mead Brewer\'s Companion</string>
+    <string name="current_brew_title">Current Brews</string>
+    <string name="help_content_description">Help</string>
+    <string name="potential_alcohol_screen_title">Potential Alcohol Calculator</string>
+    <string name="potential_alcohol_instruction_prompt">To calculate the potential alcohol of a finished brew simply:</string>
+    <string-array name="potential_alcohol_instructions">
+        <item>Select the unit used to take your pre and post fermentation measurements.</item>
+        <item>Enter your measurements in the text fields below.</item>
+        <item>Select your desired output unit.</item>
+        <item>Tap the "Calculate" button.</item>
+    </string-array>
+    <string name="significant_gravity_default">0.000</string>
+    <string name="brix_baume_default">00.00</string>
+    <string name="input_unit_default">Gravity</string>
+    <string name="output_unit_default">ABV</string>
+    <string-array name="input_units_dropdown">
+        <item>Specific Gravity</item>
+        <item>BRIX</item>
+        <item>Baume</item>
+    </string-array>
+    <string-array name="input_units_labels">
+        <item>Gravity</item>
+        <item>BRIX</item>
+        <item>Baume</item>
+    </string-array>
+    <string-array name="output_units">
+        <item>ABV</item>
+        <item>ABW</item>
+    </string-array>
+    <string name="input_unit_label">Input Unit</string>
+    <string name="original_measure_label">Original %1$s</string>
+    <string name="final_measure_label">Final %1$s</string>
+    <string name="final_measure_error_label">Final %1$s must be less than Original %1$s</string>
+    <string name="calculate_button_text">Calculate %1$s</string>
+    <string name="calculated_alcohol_title">Calculated %1$s is:</string>
+
+    <!-- Alcohol Calc help dialog -->
+    <string name="input_units_title">Input Units</string>
+    <string name="specific_gravity_label">Specific Gravity (SG):\u0020</string>
+    <string name="specific_gravity_description">Specific Gravity is a measure of the relative density of one material compared to another. For brewing, the reference material is water, so the specific gravity of a fermentable mixture is the density of the liquid divided by the density of water.</string>
+    <string name="brix_label">BRIX:\u0020</string>
+    <string name="brix_description">A Brix value, expressed as degrees Brix (°Bx), is the number of grams of sucrose present per 100 grams of liquid. The value is measured on a scale of one to 100 and is used to calculate an approximate potential alcohol content.</string>
+    <string name="baume_label">Baume:\u0020</string>
+    <string name="baume_description">A measurement of the dissolved solids in a mixture that indicates the mixture\'s sugar level and therefore the potential alcohol in the fermented drink.</string>
+
+    <string name="output_units_title">Output Units</string>
+    <string name="abv_label">Alcohol by Volume (ABV):\u0020</string>
+    <string name="abv_description">ABV is the most common measurement of alcohol content in beer; it measures the percentage of the total volume of the liquid in a fermented drink is made up of alcohol.</string>
+    <string name="abw_label">Alcohol by Weight (ABW):\u0020</string>
+    <string name="abw_description">ABW is a measure of the percentage of the total weight of a fermented drink that is made up of alcohol.</string>
+    <string name="close_button_text">Close</string>
+
 </resources>
