@@ -97,7 +97,7 @@ fun PotentialAlcoholCalc(paddingValues: PaddingValues) {
         )
     }
     var finalMeasurementError by rememberSaveable { mutableStateOf(false) }
-    val options = stringArrayResource(R.array.input_units)
+    val options = stringArrayResource(R.array.input_units_dropdown)
     var expanded by rememberSaveable { mutableStateOf(false) }
     var selectedOptionText by rememberSaveable { mutableStateOf(options[0]) }
     val keyboardController = LocalSoftwareKeyboardController.current

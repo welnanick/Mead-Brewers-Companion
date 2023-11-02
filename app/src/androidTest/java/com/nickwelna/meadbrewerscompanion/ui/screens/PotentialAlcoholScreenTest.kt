@@ -46,8 +46,8 @@ class PotentialAlcoholScreenTest {
         composeTestRule.onNodeWithText("Specific Gravity").performClick()
         composeTestRule.onNodeWithText("BRIX").performClick()
 
-        composeTestRule.onNodeWithContentDescription("Original Brix").performTextInput("22.00")
-        composeTestRule.onNodeWithContentDescription("Final Brix").performTextInput("00.00")
+        composeTestRule.onNodeWithContentDescription("Original BRIX").performTextInput("22.00")
+        composeTestRule.onNodeWithContentDescription("Final BRIX").performTextInput("00.00")
         composeTestRule.onNodeWithText("Calculate ABV").performClick()
 
         composeTestRule.onNodeWithText("12.22%")
@@ -60,8 +60,8 @@ class PotentialAlcoholScreenTest {
         composeTestRule.onNodeWithText("Specific Gravity").performClick()
         composeTestRule.onNodeWithText("BRIX").performClick()
 
-        composeTestRule.onNodeWithContentDescription("Original Brix").performTextInput("22.00")
-        composeTestRule.onNodeWithContentDescription("Final Brix").performTextInput("00.00")
+        composeTestRule.onNodeWithContentDescription("Original BRIX").performTextInput("22.00")
+        composeTestRule.onNodeWithContentDescription("Final BRIX").performTextInput("00.00")
 
         composeTestRule.onNodeWithText("ABW").performClick()
         composeTestRule.onNodeWithText("Calculate ABW").performClick()

@@ -12,10 +12,15 @@
     </string-array>
     <string name="significant_gravity_default">0.000</string>
     <string name="brix_baume_default">00.00</string>
-    <string name="input_unit_default">Specific Gravity</string>
+    <string name="input_unit_default">Gravity</string>
     <string name="output_unit_default">ABV</string>
-    <string-array name="input_units">
+    <string-array name="input_units_dropdown">
         <item>Specific Gravity</item>
+        <item>BRIX</item>
+        <item>Baume</item>
+    </string-array>
+    <string-array name="input_units_labels">
+        <item>Gravity</item>
         <item>BRIX</item>
         <item>Baume</item>
     </string-array>

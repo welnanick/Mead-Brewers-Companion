@@ -105,7 +105,7 @@ object PotentialAlcohol {
             }
 
             fun getUnitLabelString(index: Int, context: Context): String {
-                val inputUnitStrings = context.resources.getStringArray(R.array.input_units)
+                val inputUnitStrings = context.resources.getStringArray(R.array.input_units_labels)
                 if (index >= inputUnitStrings.size) {
                     throw IllegalArgumentException("Unknown index: $index")
                 }
