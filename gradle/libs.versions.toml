@@ -11,7 +11,7 @@ material3 = "1.1.2"
 truth = "1.1.5"
 ui = "1.5.4"
 androidGradlePlugin = "8.3.0-alpha11"
-kotlinAndroidPlugin = "1.9.10"
+kotlinAndroidPlugin = "1.9.21"
 semanticVersionPlugin = "2.0.0"
 
 [libraries]
